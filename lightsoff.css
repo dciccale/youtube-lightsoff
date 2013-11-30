@@ -1,0 +1,17 @@
+.lightsoff {
+  overflow: hidden!important;
+  background: #000!important;
+}
+
+.lightsoff #yt-masthead-container,
+.lightsoff .watch-sidebar {
+  visibility: hidden!important;
+}
+
+.lightsoff #player {
+  position: relative!important;
+  width: 100%!important;
+  height: 10000px!important;
+  background: #000!important;
+  z-index: 999!important;
+}

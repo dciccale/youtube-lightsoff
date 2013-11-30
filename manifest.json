@@ -1,0 +1,29 @@
+{
+  "name": "Lightsoff",
+  "description": "Lightsoff in youtube",
+  "version": "1.0.0",
+  "permissions": [
+    "activeTab",
+    "tabs"
+  ],
+  "background": {
+    "scripts": ["lightsoff.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "css": ["lightsoff.css"],
+      "matches": ["http://*.youtube.com/watch*"]
+    }
+  ],
+  "browser_action": {
+    "default_title": "Toggle Lightsoff",
+    "default_icon": "icon128.png"
+  },
+  "manifest_version": 2,
+  "icons":{
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
