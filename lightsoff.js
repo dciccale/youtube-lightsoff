@@ -14,26 +14,28 @@ var toggles = {
   }
 };
 
-// Only available for youtube at the moment
-var isYoutube = function(url) {
-  return /youtube\.com\/watch/.test(url);
+// Toggles the light switch and updates title and icon
+var toggleSwitch = function (tabId) {
+  // Save switch state for the current tab
+  states[tabId] = !states[tabId];
+
+  // Update title and icon
+  changeIcon(tabId);
 };
 
 // Updates the title and icon of the extension according the switch state
 var changeIcon = function(tabId) {
-  chrome.tabs.get(tabId, function(tab) {
-    var isLightOff = states[tab.id];
-    var data;
+  var isLightOff = states[tabId];
+  var data;
 
-    if (typeof isLightOff === 'undefined') {
-      isLightOff = false;
-    }
+  if (typeof isLightOff === 'undefined') {
+    isLightOff = false;
+  }
 
-    data = toggles[isLightOff ? 'off' : 'on'];
+  data = toggles[isLightOff ? 'off' : 'on'];
 
-    chrome.browserAction.setTitle({title: data.title});
-    chrome.browserAction.setIcon({path: data.icon});
-  });
+  chrome.browserAction.setTitle({title: data.title});
+  chrome.browserAction.setIcon({path: data.icon});
 };
 
 // Set the correct icon and title for the current tab
@@ -41,11 +43,10 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
   changeIcon(activeInfo.tabId);
 });
 
-// Turn lights back on if the page is refreshed or changed
+// Turn lights back on if the page is refreshed or changed only if it was activated
 chrome.tabs.onUpdated.addListener(function(tabId) {
-  if (typeof states[tabId] !== 'undefined' && states[tabId]) {
-    states[tabId] = false;
-    changeIcon(tabId);
+  if (states[tabId] === true) {
+    toggleSwitch(tabId);
   }
 });
 
@@ -59,16 +60,13 @@ chrome.tabs.onRemoved.addListener(function(tabId) {
 // Toggle lights on/off when clicked
 chrome.browserAction.onClicked.addListener(function(tab) {
 
-  if (isYoutube(tab.url)) {
+  // Only available for youtube at the moment
+  if (/youtube\.com\/watch/.test(tab.url)) {
     chrome.tabs.executeScript({
       code: 'window.scrollTo(0, 0);' +
             'document.body.classList.toggle("lightsoff");'
     });
 
-    // save state for the current tab
-    states[tab.id] = !states[tab.id];
-
-    // Update title and icon
-    changeIcon(tab.id);
+    toggleSwitch(tab.id);
   }
 });
