@@ -1,3 +1,10 @@
+/*!
+ * youtube-lightsoff - chrome extension
+ * Copyright (c) 2013 Denis Ciccale (@tdecs)
+ * Released under the MIT license
+ * https://github.com/dciccale/youtube-lightsoff/blob/master/LICENSE.txt
+ */
+
 // To save a reference by tabId to the switch state for each tab
 var states = {};
 
@@ -52,12 +59,12 @@ chrome.tabs.onUpdated.addListener(function(tabId) {
 
 // Remove reference of state for removed tabs
 chrome.tabs.onRemoved.addListener(function(tabId) {
-  if (states[tabId]) {
+  if (typeof states[tabId] !== 'undefined') {
     delete states[tabId];
   }
 });
 
-// Toggle lights on/off when clicked
+// Toggle lights on/off when extension icon is clicked
 chrome.browserAction.onClicked.addListener(function(tab) {
 
   // Only available for youtube at the moment
