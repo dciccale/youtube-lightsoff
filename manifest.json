@@ -1,6 +1,6 @@
 {
-  "name": "Lightsoff",
-  "description": "Lightsoff in youtube",
+  "name": "Youtube Lightsoff",
+  "description": "Turn all youtube into the dark but leaving the video you are watching, visible.",
   "version": "1.0.0",
   "permissions": [
     "activeTab",
