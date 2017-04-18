@@ -10,12 +10,13 @@
   background: #000!important;
 }
 
-.lightsoff #yt-masthead-container,
-.lightsoff .watch-sidebar {
+.lightsoff #masthead-positioner,
+.lightsoff #watch7-container,
+.lightsoff #a11y-announcements-message {
   visibility: hidden!important;
 }
 
-.lightsoff #player {
+.lightsoff #player-api {
   position: relative!important;
   width: 100%!important;
   height: 10000px!important;
